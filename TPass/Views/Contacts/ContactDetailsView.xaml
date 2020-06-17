@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 Title="Contact Detail"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			     xmlns:androidWidget="clr-namespace:Android.Widget;assembly=Mono.Android;targetPlatform=Android"
+             xmlns:formsAndroid="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.Platform.Android;targetPlatform=Android"
+			 xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+			 xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+			  xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+			 xmlns:local="clr-namespace:TPass.Controls"
+			 xmlns:views="clr-namespace:TPass.Views"
+             x:Class="TPass.Views.ContactDetailsView">
+	<ContentPage.Content>
+
+		<StackLayout>
+
+			<Grid x:Name="MainInfo" Padding="20,20,20,0" 
+					  VerticalOptions="FillAndExpand">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="110" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="110" />
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+
+				<ffimageloading:CachedImage 	
+						Grid.Row="0" Grid.Column="0"														
+						HeightRequest="100"
+						WidthRequest="100"
+						Aspect="AspectFill"
+						LoadingPlaceholder="eye.png"													
+						Source="{Binding Contact.ImageUrl}" >
+					<ffimageloading:CachedImage.Transformations>
+						<fftransformations:RoundedTransformation Radius="60"/>
+					</ffimageloading:CachedImage.Transformations>
+				</ffimageloading:CachedImage>
+
+				<StackLayout Grid.Row="0" Grid.Column="1" Style="{StaticResource MainDetailsBlock}">
+
+					<StackLayout Orientation="Horizontal">
+						<Label Text="{Binding Path=Contact.FName}" FontAttributes="Bold" FontSize="16" />
+						<Label Text="{Binding Contact.LName}" FontAttributes="Bold" FontSize="16" />
+					</StackLayout>
+
+					<Label Text="{Binding Contact.Relationship}" />
+
+					<StackLayout Orientation="Horizontal" Margin="0,6,0,0">
+						<Image Source="ic_phone_blue_dark_18dp.png" />
+						<!--<Label Text="Phone" />-->
+						<Label Text="{Binding Contact.Phone}" />
+					</StackLayout>
+
+
+					<StackLayout Orientation="Horizontal">
+						<!--<Label Text="Mobile" />-->
+						<Image Source="ic_mobile_blue_dark_18dp.png" />
+						<Label Text="{Binding Contact.Mobile}" />
+					</StackLayout>
+
+					
+
+				</StackLayout>
+
+				<StackLayout  Grid.Row="1" 
+							 Grid.ColumnSpan="2" 
+							 Grid.Column="0"
+							 Margin="0,15,0,0"
+							 >
+
+					<StackLayout Orientation="Horizontal"   IsVisible="{Binding Contact.CanPickUp}"							 
+							 >
+						<Image Source="ic_car_green_400_24dp.png" />
+						<Label Text="{Binding Contact.PickUpSched}"  
+							   VerticalTextAlignment="Center" VerticalOptions="Center"
+						   />
+					</StackLayout>
+
+					<StackLayout Orientation="Horizontal"   IsVisible="{Binding Contact.CanNotPickUp}"
+							 >
+						<Image Source="ic_car_red_dark_24dp.png" />
+						<Label Text="Pickup" VerticalTextAlignment="Center"/>
+						<Label Text="not"  FontAttributes="Bold" VerticalTextAlignment="Center"/>
+						<Label Text="allowed"   VerticalTextAlignment="Center"/>
+					</StackLayout>
+
+
+					<StackLayout Orientation="Horizontal"   IsVisible="{Binding Contact.CustodyIssue}"
+							  Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0"
+							 >
+						<Image Source="ic_courthouse_red_dark_24dp.png" />
+						<Label Text="{Binding Contact.CustodyNote}"   VerticalTextAlignment="Center"/>
+					</StackLayout>
+
+				</StackLayout>
+
+			</Grid>
+
+			<local:AlwaysScrollView x:Name="MainScroll" VerticalOptions="FillAndExpand">
+
+				<StackLayout>
+
+					<!-- Address View -->
+					<Frame IsVisible="{Binding Contact.HasAddress}" VerticalOptions="FillAndExpand">
+						<Frame.HasShadow>
+							<OnPlatform x:TypeArguments="x:Boolean" Android="true" iOS="false" WinPhone="false"/>
+						</Frame.HasShadow>
+
+						<StackLayout Spacing="0">
+							<local:LabelSection Text="Address"/>
+							<local:HeaderDivider Padding="0,0,0,6"/>
+							<StackLayout>
+								<Label Text="{Binding Contact.Address}"  />
+								<Label Text="{Binding Contact.City}" />
+								<Label Text="{Binding Contact.State}" />
+								<Label Text="{Binding Contact.ZIPCode}" />
+							</StackLayout>
+						</StackLayout>
+
+					</Frame>
+
+				</StackLayout>
+			</local:AlwaysScrollView>
+
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>

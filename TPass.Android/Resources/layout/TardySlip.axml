@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+	
+    android:orientation="vertical"
+    android:background="#ffffffff"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+	<LinearLayout android:gravity="center" android:background="@android:color/black" android:padding="10.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="10.0dip">
+		<TextView android:textSize="20.0dip" android:textColor="@android:color/white" android:layout_width="wrap_content" android:layout_height="wrap_content" 
+				  android:text="TARDY PASS" fontPath="fonts/Roboto-Regular.ttf" />
+	</LinearLayout>
+	<LinearLayout android:gravity="center"
+				  android:orientation="vertical" 
+				  android:layout_width="fill_parent"
+				  android:layout_height="wrap_content"
+				  android:layout_margin="10.0dip" 
+				  android:background="#FFFFFFFF"
+				  android:layout_weight="0.3">
+		
+		<ImageView android:layout_gravity="center" 
+				  
+				   android:id="@+id/iv_tardy_student_image" 
+				   android:layout_width="fill_parent" 
+				   android:layout_height="wrap_content" 
+				    />
+	</LinearLayout>
+	<View android:background="@android:color/black" 
+		  android:layout_width="fill_parent" 
+		  android:layout_height="2.0px" 
+		  android:layout_margin="10.0dip" />
+	
+	<LinearLayout android:orientation="vertical" 
+				  android:layout_width="wrap_content" 
+				  android:layout_height="wrap_content" 
+				  android:layout_margin="10.0dip">
+		
+		<TextView android:textSize="20.0dip" android:textStyle="bold" android:textColor="@android:color/black" 
+				  android:id="@+id/tv_tardy_student_name" android:layout_width="wrap_content" android:layout_height="wrap_content" fontPath="fonts/Roboto-Regular.ttf" />
+		<TextView android:textColor="@android:color/black" android:id="@+id/tv_tardy_school_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Administration Building" fontPath="fonts/Roboto-Regular.ttf" />
+		<TextView android:textColor="@android:color/black" 
+				  android:id="@+id/tv_tardy_reason"
+				  android:layout_width="wrap_content" 
+				  android:layout_height="wrap_content" 
+				  android:text="Tardy" fontPath="fonts/Roboto-Regular.ttf" />
+		<TextView android:textColor="@android:color/black" android:id="@+id/tv_tardy_print_date" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="March 19, 2016" fontPath="fonts/Roboto-Regular.ttf" />
+	</LinearLayout>
+	<View android:background="@android:color/black" 
+		  android:layout_width="fill_parent" android:layout_height="2.0px" android:layout_margin="10.0dip" />
+	
+	<LinearLayout android:orientation="vertical" 
+				  android:id="@+id/ll_right_layout" 
+				  android:layout_width="wrap_content" 
+				  android:layout_height="wrap_content" 
+				  android:layout_margin="10.0dip">
+		
+		<ImageView android:layout_width="wrap_content" 
+				   android:layout_height="wrap_content" 
+				   android:id="@+id/barcode_img"
+				   android:src="@drawable/barcode" 
+				   fontPath="fonts/Roboto-Regular.ttf" />
+		
+		<TextView android:textColor="@android:color/black" 
+				  android:layout_gravity="center" 
+				  android:id="@+id/tv_tardy_student_id" 
+				  android:layout_width="wrap_content" 
+				  android:layout_height="wrap_content" 
+				  android:text="1111111" 
+				  fontPath="fonts/Roboto-Regular.ttf" />
+	</LinearLayout>
+</LinearLayout>

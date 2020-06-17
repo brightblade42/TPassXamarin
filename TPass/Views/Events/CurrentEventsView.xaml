@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TPass.Views.CurrentEventsView"
+             Title="Current Events"
+			     xmlns:androidWidget="clr-namespace:Android.Widget;assembly=Mono.Android;targetPlatform=Android"
+             xmlns:formsAndroid="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.Platform.Android;targetPlatform=Android"
+			 xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+			 xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+			 xmlns:local="clr-namespace:TPass.Controls"
+			 xmlns:views="clr-namespace:TPass.Views"
+			 >
+	<AbsoluteLayout  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+		<ListView x:Name="lstResults" 
+			  ItemTapped="ListView_ItemTapped"
+			  ItemsSource="{Binding Events}"			  
+			 AbsoluteLayout.LayoutFlags="All"
+				  AbsoluteLayout.LayoutBounds="0,0,1,1"
+
+			  >
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<ViewCell>
+
+						<Grid Padding="8,5" ColumnSpacing="{StaticResource StandardSpacing}">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="*"/>
+
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"/>
+								<ColumnDefinition Width="*"/>
+							</Grid.ColumnDefinitions>
+<!--
+							<ffimageloading:CachedImage Aspect="Fill"  Grid.Row="0" Grid.Column="0"
+																	VerticalOptions="Center"
+													LoadingPlaceholder="eye.png" 
+													Source="{Binding VisitorImageUrl}" 
+																	
+																	>
+								<ffimageloading:CachedImage.Transformations>
+									<fftransformations:CircleTransformation />
+								</ffimageloading:CachedImage.Transformations>
+							</ffimageloading:CachedImage>
+-->
+
+
+							<StackLayout Grid.Column="1" Grid.Row="0"
+												   VerticalOptions="Center"
+													Spacing="{StaticResource SmallSpacing}">
+								<StackLayout Orientation="Horizontal" Spacing="5">
+									<Label Style="{DynamicResource TPassListItemTextStyle}" 
+									                      Text="{Binding Name}"/>
+									<!--
+									<Label Style="{DynamicResource TPassListItemTextStyle}" 
+									                      Text="{Binding LName}"/>
+									-->
+									<!--
+									<StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+										<Image Source="ic_ontime_green_dark_24dp.png" />
+										<Label Style="{DynamicResource TPassListItemTextStyle}" 
+									                      Text="{Binding TimeInFormat}"/>
+									</StackLayout>
+									-->
+								</StackLayout>
+							</StackLayout>
+						
+
+						</Grid>
+
+
+
+					</ViewCell>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
+		<StackLayout IsVisible="{Binding IsBusy}" 
+					 BackgroundColor="Black" 
+					 Padding="12"
+                     AbsoluteLayout.LayoutFlags="PositionProportional"
+                     AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+			<ActivityIndicator IsRunning="{Binding IsBusy}" Color ="White">
+			</ActivityIndicator>
+			<Label Text="Searching..." HorizontalOptions="Center" TextColor="White"/>
+		</StackLayout>
+
+	</AbsoluteLayout>
+</ContentPage>

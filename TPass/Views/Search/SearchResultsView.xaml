@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TPass.Views.SearchResultsView"
+             Title="Students"
+			     xmlns:androidWidget="clr-namespace:Android.Widget;assembly=Mono.Android;targetPlatform=Android"
+             xmlns:formsAndroid="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.Platform.Android;targetPlatform=Android"
+			 xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+			 xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+			 xmlns:local="clr-namespace:TPass.Controls"
+			 xmlns:views="clr-namespace:TPass.Views"
+			 >
+
+    <ListView x:Name="lstResults" 
+			  ItemTapped="ListView_ItemTapped"
+			  ItemsSource="{Binding Results}"
+			  >
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+
+                    <Grid Padding="8,5" ColumnSpacing="{StaticResource StandardSpacing}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+
+
+                        <ffimageloading:CachedImage Aspect="Fill" 
+																	VerticalOptions="Center"
+													LoadingPlaceholder="eye.png" 
+													Source="{Binding ImageUrl}" 
+																	
+																	>
+                            <ffimageloading:CachedImage.Transformations>
+                                <fftransformations:CircleTransformation />
+                            </ffimageloading:CachedImage.Transformations>
+                        </ffimageloading:CachedImage>
+
+
+                        <StackLayout Grid.Column="1" 
+												   VerticalOptions="Center"
+													Spacing="{StaticResource SmallSpacing}">
+                            <StackLayout Orientation="Horizontal" Spacing="5">
+                                <Label Style="{DynamicResource TPassListItemTextStyle}" 
+									                      Text="{Binding FName}"/>
+                                <Label Style="{DynamicResource TPassListItemTextStyle}" 
+									                      Text="{Binding LName}"/>
+
+                            </StackLayout>
+
+                            <Label Style="{DynamicResource TPassListItemDetailTextStyle}"
+														Text="{Binding Suspended}"/>
+                        </StackLayout>
+
+                    </Grid>
+
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>

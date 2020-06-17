@@ -1,0 +1,346 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Student"
+             xmlns:androidWidget="clr-namespace:Android.Widget;assembly=Mono.Android;targetPlatform=Android"
+             xmlns:formsAndroid="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.Platform.Android;targetPlatform=Android"
+			 xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+			 xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+			 xmlns:local="clr-namespace:TPass.Controls"
+			 xmlns:views="clr-namespace:TPass.Views"
+             x:Class="TPass.Views.StudentProfileView">
+
+	<StackLayout>
+
+		<Grid x:Name="MainInfo" Padding="20" 
+					  VerticalOptions="FillAndExpand">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="110" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="110" />
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+
+			<ffimageloading:CachedImage 	
+						Grid.Row="0" Grid.Column="0"														
+						HeightRequest="100"
+						WidthRequest="100"
+						Aspect="AspectFill"
+						LoadingPlaceholder="eye.png"													
+						Source="{Binding Details.ImageUrl}" >
+				<ffimageloading:CachedImage.Transformations>
+					<fftransformations:RoundedTransformation Radius="60"/>
+				</ffimageloading:CachedImage.Transformations>
+			</ffimageloading:CachedImage>
+			
+			<StackLayout Grid.Row="0" Grid.Column="1" Style="{StaticResource MainDetailsBlock}">
+
+				<StackLayout Orientation="Horizontal">
+					
+					<Label Text="{Binding Path=Details.FName}" 
+						   FontAttributes="Bold" 
+						   FontSize="16" 
+						   TextColor="{Binding StatusTextColor}"/>
+					<Label Text="{Binding Details.LName}" 
+						   FontAttributes="Bold" 
+						   FontSize="16" 
+						   TextColor="{Binding StatusTextColor}"/>
+				</StackLayout>
+
+				<!-- <Label Text="School" /> -->
+				<Label Text="{Binding Details.School}"  FontSize="11"/>
+
+				<StackLayout Orientation="Horizontal">
+					<Label Text="Grade" FontSize="11"/>
+					<Label Text="{Binding Details.Grade}" FontSize="11" />
+				</StackLayout>
+
+			
+
+				<StackLayout Orientation="Horizontal" IsVisible="{Binding HasHomeroomListing}" Spacing="3">
+					<Label Text="{Binding HomeroomText}" FontSize="11"/>
+				</StackLayout>
+
+		
+
+			</StackLayout>
+
+			<StackLayout Spacing="5" Padding="0,5,0,0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+				
+				<StackLayout Orientation="Horizontal"  IsVisible="{Binding HasMedicalRecord}">
+					<Image Source="ic_medical_red_dark_24dp.png" />
+					
+					<Label Text="{Binding MedicalRecord.Description}" FontSize="11" />
+				</StackLayout>
+				
+				<StackLayout Orientation="Horizontal" IsVisible="{Binding IsSuspended}" >
+					
+					<Image Source="ic_suspension_red_dark_24dp.png" HeightRequest="25" 
+						   VerticalOptions="Center" IsVisible="{Binding IsExternalSuspension}"></Image>
+					
+					<Image Source="ic_suspension_yellow_dark_24dp.png" HeightRequest="25" 
+						   VerticalOptions="Center" IsVisible="{Binding IsInternalSuspension}"></Image>
+
+					<Label Text="{Binding SuspendedText}" FontSize="11" VerticalOptions="Center" VerticalTextAlignment="Center"></Label>
+				</StackLayout>
+			</StackLayout>
+		</Grid>
+
+
+
+		<local:AlwaysScrollView x:Name="MainScroll" VerticalOptions="FillAndExpand">
+			
+			<StackLayout>
+
+                <Frame>
+                    <Frame.HasShadow>
+                        <OnPlatform x:TypeArguments="x:Boolean" 
+									Android="true" iOS="false" 
+									WinPhone="false"/>
+                    </Frame.HasShadow>
+
+                    <StackLayout Spacing="0" VerticalOptions="Fill">
+
+
+                        <local:LabelSection Text="Schedule"/>
+                        <local:HeaderDivider Padding="0,20,0,0"/>
+<!--
+                        <ListView ItemsSource="{Binding Schedule}" HasUnevenRows="True">
+
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell >
+
+										<StackLayout  	Spacing="{StaticResource SmallSpacing}"
+                                                    Orientation="Vertical">
+
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="{Binding Period}" HorizontalOptions="Start"/>
+
+												
+                                                <Label Text="{Binding Class}" 
+                                                   
+                                                    TextColor="Blue" />
+
+                                                <Label Text="{Binding Location}"
+                                                    HorizontalOptions="EndAndExpand"
+                                                    TextColor="#503026" />
+
+											</StackLayout>
+											<Label Text="{Binding Days}" 
+												   Margin="15,0,0,0"
+												   Style="{DynamicResource TPassListItemDetailTextStyle}"
+												   HorizontalOptions="Start" />
+										
+										</StackLayout>
+                                    </ViewCell>
+
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView> -->
+                        <ListView x:Name="ScheduleList" ItemsSource="{Binding GroupedSchedule}" 
+                                  IsGroupingEnabled="True"
+                                  GroupDisplayBinding="{Binding Key}"
+                                  GroupShortNameBinding="{Binding Key}"
+                                  HasUnevenRows="True"
+                                  >
+
+                            <ListView.GroupHeaderTemplate>
+                                <DataTemplate>
+                                    <ViewCell Height="25">
+                                        <StackLayout VerticalOptions="FillAndExpand"
+                                                     Padding="5"
+                                                     BackgroundColor="#3498DB">
+                                            <Label Text="{Binding Key}" TextColor="White" VerticalOptions="Center"/>
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.GroupHeaderTemplate>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell >
+
+                                        <StackLayout  	Spacing="{StaticResource SmallSpacing}"
+                                                    Orientation="Vertical">
+
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="{Binding Period}" HorizontalOptions="Start"/>
+
+
+                                                <Label Text="{Binding Class}" 
+                                                   
+                                                    TextColor="Blue" />
+
+                                                <Label Text="{Binding Location}"
+                                                    HorizontalOptions="EndAndExpand"
+                                                    TextColor="#503026" />
+
+                                            </StackLayout>
+                                            <Label Text="{Binding Days}" 
+												   Margin="15,0,0,0"
+												   Style="{DynamicResource TPassListItemDetailTextStyle}"
+												   HorizontalOptions="Start" />
+
+                                        </StackLayout>
+                                    </ViewCell>
+
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                </Frame>
+                
+                <Frame >
+					<Frame.HasShadow>
+						<OnPlatform x:TypeArguments="x:Boolean" Android="true" iOS="false" WinPhone="false"/>
+					</Frame.HasShadow>
+
+					<StackLayout Spacing="0">
+
+
+						<local:LabelSection Text="Contacts"/>
+						<local:HeaderDivider Padding="0,20,0,0"/>
+
+						<local:NonScrollableListView ItemsSource="{Binding Contacts}" 
+							  ItemTapped="ListView_ItemTapped"
+							  RowHeight="46" 
+							  MinimumHeightRequest="46" 
+								HeightRequest="300"
+							  >
+							<ListView.ItemTemplate>
+								<DataTemplate>
+									<ViewCell>
+
+
+										<Grid Padding="8,5" ColumnSpacing="{StaticResource StandardSpacing}">
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="Auto"/>
+												<ColumnDefinition Width="*"/>
+											</Grid.ColumnDefinitions>
+
+
+											<ffimageloading:CachedImage 
+                                                Aspect="AspectFit"
+                                                                        HeightRequest="50"
+                                                                        WidthRequest="50"
+																	VerticalOptions="Center"
+                                                                        HorizontalOptions="Center"
+                                                                        DownsampleToViewSize="True"
+													LoadingPlaceholder="eye.png" 
+													Source="{Binding ImageUrl}" 
+																	IsVisible="{Binding CanPickUp}"
+																	>
+												<ffimageloading:CachedImage.Transformations>
+													<fftransformations:CircleTransformation />
+
+												</ffimageloading:CachedImage.Transformations>
+											</ffimageloading:CachedImage>
+
+
+
+											<ffimageloading:CachedImage 
+                                            
+                                                                        Aspect="AspectFit"
+                                                                        HeightRequest="50"
+                                                                        WidthRequest="50"
+																	    VerticalOptions="Center"
+                                                                        HorizontalOptions="Center"
+                                                                        DownsampleToViewSize="True"
+													LoadingPlaceholder="eye.png" 
+													Source="{Binding ImageUrl}" 
+																		IsVisible="{Binding CanNotPickUp}">
+												<ffimageloading:CachedImage.Transformations>
+
+													<fftransformations:CircleTransformation BorderSize="6" BorderHexColor="#FF0000"/>
+													<fftransformations:GrayscaleTransformation />
+                                                </ffimageloading:CachedImage.Transformations>
+                                            </ffimageloading:CachedImage> 
+
+
+											<StackLayout Grid.Column="1" 
+												   VerticalOptions="Center"
+													Spacing="{StaticResource SmallSpacing}">
+												<StackLayout Orientation="Horizontal" Spacing="5">
+													<Label Style="{DynamicResource TPassListItemTextStyle}" 
+									                      Text="{Binding FName}"/>
+													<Label Style="{DynamicResource TPassListItemTextStyle}" 
+									                      Text="{Binding LName}"/>
+
+												</StackLayout>
+
+												<Label Style="{DynamicResource TPassListItemDetailTextStyle}"
+														Text="{Binding Relationship}"/>
+											</StackLayout>
+
+										</Grid>
+
+
+
+									</ViewCell>
+								</DataTemplate>
+							</ListView.ItemTemplate>
+						</local:NonScrollableListView>
+					</StackLayout>
+				</Frame>
+
+
+				<!-- Address View -->
+				<Frame IsVisible="{Binding HasAddress}" VerticalOptions="FillAndExpand">
+					<Frame.HasShadow>
+						<OnPlatform x:TypeArguments="x:Boolean" Android="true" iOS="false" WinPhone="false"/>
+					</Frame.HasShadow>
+
+					<StackLayout Spacing="0">
+						<local:LabelSection Text="Address"/>
+						<local:HeaderDivider Padding="0,0,0,10"/>
+						<StackLayout>
+							<Label Text="{Binding Details.Address}" FontSize="11" />
+							<Label Text="{Binding Details.City}" FontSize="11"/>
+							<Label Text="{Binding Details.State}" FontSize="11"/>
+							<Label Text="{Binding Details.ZIPCode}" FontSize="11"/>
+						</StackLayout>
+					</StackLayout>
+
+				</Frame>
+
+
+		
+
+				<Frame IsVisible="False">
+					<Frame.HasShadow>
+						<OnPlatform x:TypeArguments="x:Boolean" Android="true" iOS="false" WinPhone="false"/>
+					</Frame.HasShadow>
+					<StackLayout>
+						<Label Text="{Binding Details.Homeroom}" />
+						<Label Text="{Binding Details.HMTeacher}" />
+					</StackLayout>
+				</Frame>
+
+				<Frame IsVisible="False">
+					<Frame.HasShadow>
+						<OnPlatform x:TypeArguments="x:Boolean" Android="true" iOS="false" WinPhone="false"/>
+					</Frame.HasShadow>
+
+					<StackLayout>
+						<Label Text="{Binding Details.CanSignOut}"/>
+					
+						<StackLayout>
+							<Label Text="{Binding Details.Suspended}" />
+							<Label Text="{Binding Details.Reason}" />
+						</StackLayout>
+				
+					</StackLayout>
+				</Frame>
+
+		
+
+			</StackLayout>
+
+
+		</local:AlwaysScrollView>
+	</StackLayout>
+
+</ContentPage>

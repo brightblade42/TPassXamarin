@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="application_name">TPass K12</string>
+  <string name="st_profile">Student Profile</string>
+  <string name="search_placeholder">Search by student id.</string>
+  <string name="dashboard">Dashboard</string>
+  <string name="tpass_preferences">Server</string>
+  <string name="title_server_url">TPass Url</string>
+  <string name="title_switch_preference">Do it</string>
+  <string name="summary_switch_preference">Soon this will be a thing to use.</string>
+  
+</resources>

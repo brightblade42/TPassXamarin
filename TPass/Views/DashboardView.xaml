@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TPass.Views.DashboardView"
+			 xmlns:local="clr-namespace:TPass.Controls"
+             NavigationPage.BackButtonTitle="Dashboard"
+             NavigationPage.HasBackButton="False">
+		<Grid Padding="10" RowSpacing="1" ColumnSpacing="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="30" />
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="*" />
+				<RowDefinition Height="30"/>
+				<RowDefinition Height="*" />
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+
+			<local:LabelSection Grid.Row="0" Grid.Column="0" Text="Students" />
+
+			<Grid Grid.Row="1" Grid.Column="0">
+				<Button Command="{Binding GoSearchCommand}"					
+					BackgroundColor="{StaticResource NormalButtonBackgroundColor}"
+				    Image="ic_alarm_cyan_100_24dp"					
+					TextColor="{StaticResource ButtonTextColorLight}"					
+					CommandParameter="tardy" />
+
+				<Label Text="Tardy" 
+				   HorizontalOptions="Center"
+				   VerticalOptions="End"
+				   FontSize="Medium"
+				   Margin="0,0,0,5"
+				   TextColor="{StaticResource ButtonTextColorLight}"></Label>
+			</Grid>
+
+			<Grid Grid.Row="1" Grid.Column="1">
+				<Button 
+				Image="ic_person_light_blue_200_36dp"
+					Command="{Binding GoSearchCommand}" 
+					CommandParameter="profile"
+					BackgroundColor="{StaticResource NormalButtonBackgroundColor}"
+					/>
+
+				<Label Text="Profile" 
+				   HorizontalOptions="Center"
+				   VerticalOptions="End"
+				   FontSize="Medium"
+				   Margin="0,0,0,5"
+				   TextColor="{StaticResource ButtonTextColorLight}"></Label>
+			</Grid>
+
+			<Grid 	Grid.Row="2" 
+				Grid.Column="0">
+
+				<Button Command="{Binding GoSearchCommand}"
+					Image="ic_check_circle_green_100_24dp.png"
+					BackgroundColor="{StaticResource NormalButtonBackgroundColor}"					
+				
+					CommandParameter="checkin"/>
+				<Label Text="Check in" 
+				   HorizontalOptions="Center"
+				   VerticalOptions="End"
+				   FontSize="Medium"
+				   Margin="0,0,0,5"
+				   TextColor="{StaticResource ButtonTextColorLight}"></Label>
+
+			</Grid>
+
+			
+			<Grid 	Grid.Row="2"	
+				Grid.Column="1">
+				<Button 
+				Image="ic_sentiment_dissatisfied_red_300_24dp.png"
+				BackgroundColor="{StaticResource NormalButtonBackgroundColor}"					
+				
+				Command="{Binding GoSearchCommand}"		
+				CommandParameter="behavior" />
+
+				<Label Text="Behavior" 
+				   HorizontalOptions="Center"
+				   VerticalOptions="End"
+				   FontSize="Medium"
+				   Margin="0,0,0,5"
+				   TextColor="{StaticResource ButtonTextColorLight}"></Label>
+			</Grid>
+			
+				<local:LabelSection Grid.Row="3" Grid.Column="0" Text="Events" />
+        		<Button Text="Events" 
+                        Grid.Row="4" 
+                        Grid.Column="0" 
+                        Command="{Binding GoSearchCommand}"
+            	 		CommandParameter="currentEvents"/>
+            		
+		
+			<!--
+			<local:LabelSection Grid.Row="3" Grid.Column="0" Text="Visits" />
+			<Button Text="Current" Grid.Row="4" Grid.Column="0" Command="{Binding GoSearchCommand}"
+				CommandParameter="currentVisits"/>
+		<Button Text="Scheduled" Grid.Row="4" Grid.Column="1" Command="{Binding GoSearchCommand}"
+				CommandParameter="scheduled" />
+
+        <Button Text="Completed"
+                     Command="{Binding GoSearchCommand}"
+                    CommandParameter="completedVisits"
+                    Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"/>
+-->
+		</Grid>
+		
+
+</ContentPage>

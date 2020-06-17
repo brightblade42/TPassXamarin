@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             NavigationPage.HasBackButton="False"
+             
+             x:Class="TPass.Views.LoginView">
+	<ContentPage.Content>
+        
+		<StackLayout x:Name="frmLogin" 
+                     Orientation="Vertical"                    
+                     Margin="0,50,0,0"
+                     Spacing="0" Padding="10">
+            
+			<Label x:Name="AppName" Text="tpass" 
+                   VerticalOptions="Center" 
+                   FontSize="50"
+				   TextColor="Blue"
+                   HorizontalOptions="Center" />
+			<Label x:Name="CoName" 
+				     Text="by eyemetric"    VerticalOptions="Center" 	  
+				     HorizontalOptions="Center"	   Margin="50,0,0,10"/>
+
+            
+            <Frame>
+                <Frame.HasShadow>
+                    <OnPlatform x:TypeArguments="x:Boolean" Android="true" iOS="false" WinPhone="false"/>
+                </Frame.HasShadow>
+                <StackLayout x:Name="frmInput">
+                <Entry x:Name="etUserName" Placeholder="Username" AnchorX="0" Text="{Binding UserName}">
+                    
+                </Entry>
+                <Entry x:Name="etPassword" Placeholder="Password"  IsPassword="True"  Text="{Binding Password}"/>
+			</StackLayout>
+            </Frame>
+
+
+            <Button x:Name="btnLogin" Text="Login" Command="{Binding LoginCommand}" IsEnabled="{Binding IsNotBusy}"
+                    />
+			<Label x:Name="lblLostPassword" Text="forgot password?" HorizontalOptions="End"/>
+
+            
+            <ActivityIndicator IsRunning="{Binding IsBusy}" />
+            
+        </StackLayout>
+	</ContentPage.Content>
+</ContentPage>

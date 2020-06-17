@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TPass.Views.SelectTardyPopup">
+
+	
+	<StackLayout Padding="20" Spacing="50">
+		<Picker Title="SELECT EXCUSE" VerticalOptions="CenterAndExpand">
+			<Picker.Items>
+				<x:String>Medical Note</x:String>
+				<x:String>Transportation Issue</x:String>
+				<x:String>Late School Bus</x:String>
+			</Picker.Items>
+		</Picker>
+		<!--
+		<Label BackgroundColor="Blue" Text="SELECT TARDY REASON" TextColor="White" HorizontalOptions="FillAndExpand" />
+		<ListView x:Name="lstTardyChoices">
+			
+		</ListView>
+		<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+			<Button Text="CANCEL" />
+			<Button Text="SAVE" Clicked="Button_Clicked" />
+
+		</StackLayout>
+		-->
+	</StackLayout>
+	
+</ContentPage>
